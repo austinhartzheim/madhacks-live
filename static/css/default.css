@@ -1,0 +1,212 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: 'Times','Bitstream Vera Serif',serif;
+	font-size: 11pt;
+}
+#container {
+	text-align: left;
+	display: inline-block;
+	max-width: 1000px;
+	width: 100%;
+}
+
+header, footer {
+	vertical-align: bottom;
+	background-color: rgb(230,230,231);
+	color: #222;
+	font-size: 15px;
+	overflow: auto;
+}
+header a, footer a {
+	color: #333;
+	text-decoration: none;
+}
+#nav {
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+}
+#subnav {
+	margin: 5px 20px 0px 20px;
+
+}
+#subnav a {
+	color: black;
+}
+footer {
+	border-top: 5px solid #444;
+	border-bottom: 20px solid #222;
+	margin-top: 20px;
+	padding: 10px;
+	overflow: auto;
+}
+footer .column {
+	border-left: 1px solid #ddd;
+	width: 150px;
+}
+footer ul {
+	list-style: none;
+}
+
+.logo {
+	font-family: monospace;
+	border: none !important;
+	color: #5e5e5e;
+}
+footer .logo {
+	line-height: 100px;
+}
+
+.colrow {
+	height: 100px;
+	padding-left: 2px; /* lame centering hack */
+	
+}
+.colbox {
+	width: 300px;
+	height: 130px;
+	float: left;
+	border: 1px solid #ccc;
+	margin: 15px;
+}
+.colbox p {
+	position: relative;
+	top: 100px; left: 10px;
+	margin: 0px;
+	font-size: 20px;
+	color: white;
+	text-shadow: 0 0 8px black;
+}
+.featurescols > .colbox {
+	background: url('/img/categories.jpg');
+}
+
+#content {
+	font-family: Georgia, serif;
+	padding: 4px;
+}
+hr {clear: both; margin: 20px; height: 1px; color: #ccc;}
+
+.flleft {float: left;}
+.flright {float: right;}
+.column {float: left;}
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Book Antiqua",Palatino,"Palatino Linotype","Palatino LT STD",Georgia,serif;
+	font-weight: bold;
+}
+h1,h2 {text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.7); font-weight: normal;}
+h1 {font-size: 48px; margin: 10px 0px 4px 0px;}
+h2 {font-size: 24px;}
+h3 {font-size: 16pt;}
+h4 {font-size: 14pt;}
+section header h1 {font-size: 36px;}
+section h2 {border-bottom: 1px dashed rgba(50, 50, 50, 0.7);}
+
+article header h2 {
+    margin: 0px;
+}
+article header {
+    padding: 20px;
+}
+
+section.note {
+	background-color: #2980B9;
+	border-left: 3px solid #20638F;
+	margin: 10px; padding: 24px;
+	color: white;
+}
+section.warning, .errorlist li {
+	background-color: #B98029;
+	border-left: 3px solid #8F6320;
+	margin: 10px; padding: 24px;
+	color: white;
+}
+section.note h1, section.warning h1 {
+	font-size: 16pt;
+	text-shadow: none;
+	font-weight: bold;
+}
+section.note a, section.warning a {
+	color: white;
+}
+nav.toc {
+	background-color: black;
+	color: white;
+	overflow: auto;
+	padding: 10px;
+	margin: 10px;
+}
+nav.toc > ul > li {
+	float: left;
+	font-weight: bold;
+	list-style: none;
+	margin: 15px;
+	display: inline-block;
+}
+nav.toc > ul > li li {font-weight: normal; list-style: none;}
+nav.toc a {color: white;}
+
+aside {
+	background-color: rgb(255,240,220);
+	font-size: 10pt;
+	color: black;
+	float: right; 
+	clear: right; 
+	width: 300px;
+	padding: 5px;
+}
+aside h1 {font-size: 14pt; text-shadow: none; font-weight: bold;}
+aside a {color: #333 !important;}
+
+/* Form styles */
+input, textarea {
+	font-size: 14pt;
+	border-radius: 4px;
+	border: 1px solid black;
+	background-color: rgb(34,34,34);
+	color: rgb(210, 210, 210);
+}
+input[type="text"], textarea {
+	width: 256px;
+}
+
+label {
+	margin: 2px 6px;
+}
+.shorttextinputs input[type="text"] {
+	width: 128px;
+}
+
+.errorlist {
+	padding: 0px;
+}
+.helptext {
+	color: #505050;
+}
+
+/* Misc */
+.comment {
+	border-left: 15px solid red;
+	padding-left: 10px;
+	font-size: 90%;
+	margin: 15px;
+}
+.specialcomment {
+	border-left: 15px solid green;
+}
+.comment a {
+	color: black;
+}
+
+pre > code {
+	display: block;
+	margin-left: 10px;
+	border-left: 5px solid rgb(230,230,231);
+	padding-left: 4px;
+	overflow: auto;
+}
+pre {
+    overflow: auto;
+}

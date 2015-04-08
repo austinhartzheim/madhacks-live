@@ -1,0 +1,24 @@
+{% extends "default.tpl.html" %}
+{% block title %}Vote{% endblock %}
+{% block heading %}Vote{% endblock %}
+{% block content %}
+
+<p>At MadHacks, the winners are chosen by the hackers. Every participant is allowed to vote for their three favorite hacks in each category. Their top choice will be awarded three points, the second choice will be awarded two points, and the third choice will be awarded one point. You may choose to leave any selection blank.</p>
+
+<section class="note">Please note that you can only vote once. You will not be able to edit your vote after you submit.</section>
+
+<h2>Log-In to Start Voting</h2>
+<p>Please enter the email address you used when you RSVPed with MadHacks.</p>
+
+<!-- Email Form -->
+<form method="post" action="/vote/enter/submit">
+{% if error %}
+<section class="warning">{{ error }}</section>
+{% endif %}
+
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Start Voting!" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{% block title %}Home{% endblock %} : MadHacks Live</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    {% block headincludes %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <div id="nav">
+      	  <span class="flleft">
+            <a href="/" title="MadHacks Live">Home</a> | 
+	    <a href="/blog/" title="MadHacks Live Blog">Blog</a> | 
+            <a href="/map/" title="MadHacks Map">Map</a>
+          </span>
+          <span class="flright logo">
+	    MadHacks Live
+          </span>
+        </div>
+      </header>
+      
+      <!-- page top -->
+      <section>
+        {% block subnav %}{% endblock %}
+        <h1>{% block heading %}Title needed{% endblock %}</h1>
+      </section>
+      
+      <!-- page body -->
+      <div id="content">
+      	{% block content %}{% endblock %}
+      </div>
+      
+      <hr />
+      
+      <footer>
+        <div class="column logo">MadHacks Live</div>
+        <div class="column">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/map/">Map</a></li>
+          </ul>
+        </div>
+	<div class="column">
+	  <ul>
+	    <li>&nbsp;</li>
+	    <li><em>Designed by</em></li>
+	    <li><em>Austin Hartzheim</em></li>
+	  </ul>
+	</div>
+      </footer>
+    </div>
+  </body>
+</html>
