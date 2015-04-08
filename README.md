@@ -8,3 +8,8 @@ If you are just getting started with Django, you can run a live server by runnin
 
 # Contributing
 When contributing to MadHacks Live, please make sure that your contributions are compatible with Python 3. Also, please add your name to the copyright line in the LICENSE file.
+
+# Migrating versions
+Because this software is under active development, migrations will not be generated for these early revisions. This will be evaluated again after a stable release is made.
+
+If you have a need for migrations, please file a bug so we know someone is needs the feature.
