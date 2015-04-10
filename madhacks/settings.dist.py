@@ -12,12 +12,14 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+from django.conf import settings
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'GENERATE YOUR OWN LONG, RANDOM SECRET HERE'
+SECRET_KEY = 'CREATE YOUR SECRET KEY HERE'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,4 +92,29 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = (
     BASE_DIR + '/templates/',
+)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR + '/templates/'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            # TODO: settings.TEMPLATE_CONTEXT_PROCESSORS is deprecated as of
+            #   Django 1.8 and should be updated.
+            'context_processors': settings.TEMPLATE_CONTEXT_PROCESSORS + ('madhacks.context_processors.hackathon_specifics',)
+        }
+    },
+]
+
+TEMPLATE_CONTEXT_PROCESSOS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages'
+    
+    'madhacks.context_processors.hackathon_specifics'
 )

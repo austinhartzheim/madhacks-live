@@ -1,8 +1,8 @@
 <!doctype html>
 <html>
   <head>
-    <title>{% block title %}Home{% endblock %} : MadHacks Live</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <title>{% block title %}Home{% endblock %} : {{ HACKATHON_NAME }} Live</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/default.css" />
     {% block headincludes %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -11,12 +11,12 @@
       <header>
         <div id="nav">
       	  <span class="flleft">
-            <a href="/" title="MadHacks Live">Home</a> | 
-	    <a href="/blog/" title="MadHacks Live Blog">Blog</a> | 
-            <a href="/map/" title="MadHacks Map">Map</a>
+            <a href="/" title="{{ HACKATHON_NAME }} Live">Home</a> | 
+	    <a href="/blog/" title="{{ HACKATHON_NAME }} Live Blog">Blog</a> | 
+            <a href="/map/" title="{{ HACKATHON_NAME }} Map">Map</a>
           </span>
           <span class="flright logo">
-	    MadHacks Live
+	    {{ HACKATHON_NAME }}
           </span>
         </div>
       </header>
@@ -35,7 +35,7 @@
       <hr />
       
       <footer>
-        <div class="column logo">MadHacks Live</div>
+        <div class="column logo">{{ HACKATHON_NAME }} Live</div>
         <div class="column">
           <ul>
             <li><a href="/">Home</a></li>
@@ -46,7 +46,7 @@
 	<div class="column">
 	  <ul>
 	    <li>&nbsp;</li>
-	    <li><em>Designed by</em></li>
+	    <li><em>Created by</em></li>
 	    <li><em>Austin Hartzheim</em></li>
 	  </ul>
 	</div>
