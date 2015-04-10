@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
 from django.forms.formsets import formset_factory
@@ -65,23 +66,6 @@ def vote_enter_submit(request):
                                    'error': ERRORTEXT_EMAIL_NOT_REGISTERED},
                                   RequestContext(request))
 
-    # TODO: craft the page where the user can submit votes. This
-    #   means we should use a Django form.
-    '''
-    polls = Poll.objects.filter(active=True)
-    VoteFormFormSet = formset_factory(VoteForm, extra=len(polls)-1)
-    formset = VoteFormFormSet(initial=list(
-            {'poll_pk': poll.pk,
-             'poll_title': poll.name} for poll in polls))
-
-    print(formset)
-
-    return render_to_response('vote/vote_page.tpl.html',
-                              {'email': request.POST['email'],
-                               'formset': formset},
-                              RequestContext(request))
-    '''
-
     polls = Poll.objects.filter(active=True)
     forms = list(
         {'title': poll.name, 'pk': poll.pk, 'form': VoteForm(prefix=poll.pk),
@@ -107,4 +91,21 @@ def vote_submit(request):
     # TODO: populate vote objects and save them.
     # TODO: mark the user as having voted by removing from the group
     #   of people who need to vote.
-    pass
+    
+    return HttpResponseRedirect('/vote/thanks')
+
+def vote_thanks(request):
+    '''
+    Thank the user for their vote.
+    '''
+    return render_to_response('vote/thanks.tpl.html',
+                              RequestContext(request))
+
+
+def vote_error(request):
+    '''
+    Return a generic error page. (Although, a more specific error
+    message would be better.)
+    '''
+    return render_to_response('vote/error.tpl.html',
+                              RequestContext(request))
