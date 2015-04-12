@@ -16,6 +16,11 @@ ERRORTEXT_ACCESS_DENIED = ('You do not have permission to vote. You might '
                            'vote through another system. Please check with '
                            'an event staff if you have questions.')
 ERRORTEXT_ALREADY_VOTED = ('You have already voted.')
+ERRORTEXT_COOKIES_ENABLED = ('You must have cookies enabled to use this form. '
+                             'Please check that they are enabled.')
+ERRORTEXT_INVALID_TEAM_CHOICE = ('You have selected an invalid team. '
+                                 'Please try voting again. If this error'
+                                 'persists, please contact an administrator.')
 
 def vote_enter_prompt(request):
     '''
@@ -46,6 +51,7 @@ def vote_enter_submit(request):
     email = form.cleaned_data['email']
     try:
         user = User.objects.get(email=email)
+        request.session['upk'] = user.pk
     except User.DoesNotExist:
         return render_to_response('vote/enter_prompt.tpl.html',
                                   {'form': form,
@@ -56,7 +62,7 @@ def vote_enter_submit(request):
     try:
         status = Status.objects.get(user=user)
         if status.voted:
-            return render_to_response('vote/enter_prompt_tpl.html',
+            return render_to_response('vote/enter_prompt.tpl.html',
                                       {'form': form,
                                        'error': ERRORTEXT_ALREADY_VOTED},
                                       RequestContext(request))
@@ -73,8 +79,7 @@ def vote_enter_submit(request):
     )
 
     return render_to_response('vote/vote_page.tpl.html',
-                              {'email': request.POST['email'],
-                               'forms': forms},
+                              {'forms': forms},
                               RequestContext(request))
 
 def vote_submit(request):
@@ -83,14 +88,81 @@ def vote_submit(request):
     identifier as having voted, and redirect the user to a page that
     thanks them for their vote.
     '''
-    # TODO: check again that the user is allowed to vote (they are
-    #   registered and are still a member of the group allowed to vote)
-    # TODO: check that the votes are valid. If they are not valid,
-    #   render the vote_page.tpl.html page again with the form filled
-    #   in and invalid entries highlighted.
-    # TODO: populate vote objects and save them.
-    # TODO: mark the user as having voted by removing from the group
-    #   of people who need to vote.
+    # Fetch the user ID from request.session
+    upk = request.session.get('upk', None)
+    if upk == None:
+        return render_to_response('vote/error.tpl.html',
+                                  {'error': ERRORTEXT_COOKIES_ENABLED},
+                                  RequestContext(request))
+    user = User.objects.get(pk=upk)
+
+    # Check the status table to see if the user has voted
+    try:
+        status = Status.objects.get(user=user)
+        if status.voted:
+            return render_to_response('vote/error_prompt.tpl.html',
+                                      {'error': ERRORTEXT_ALREADY_VOTED},
+                                      RequestContext(request))
+    except Status.DoesNotExist:
+        return render_to_response('vote/error.tpl.html',
+                                  {'error': ERRORTEXT_EMAIL_NOT_REGISTERED},
+                                  RequestContext(request))
+
+    # Load and validate the form data
+    vote_objects = []
+
+    voteforms = []
+    voteforms_are_valid = True
+    polls = Poll.objects.filter(active=True)
+
+    for poll in polls:
+        voteform = VoteForm(request.POST, prefix=poll.pk)  # Unwrap factory
+        if not voteform.is_valid():
+            votesforms_are_valid = False
+ 
+        voteobject = Vote()
+        voteobject.user = user
+        voteobject.poll = poll
+
+        try:
+            print(voteform.cleaned_data)
+            votes = voteform.get_votes()
+            voteobject.place1 = votes[0]
+            voteobject.place2 = votes[1]
+            voteobject.place3 = votes[2]
+        except KeyError:
+            polls = Poll.objects.filter(active=True)
+            forms = list(
+                {'title': poll.name, 'pk': poll.pk,
+                 'form': VoteForm(prefix=poll.pk),
+                 'description': poll.description} for poll in polls
+            )
+
+            return render_to_response('vote/vote_page.tpl.html',
+                                      {'error': ERRORTEXT_INVALID_TEAM_CHOICE,
+                                       'forms': forms},
+                                      RequestContext(request))
+        vote_objects.append(voteobject)
+
+    # Check again if the user has voted (to prevent race conditions)
+    try:
+        status = Status.objects.get(user=user)
+        if status.voted:
+            return render_to_response('vote/error_prompt.tpl.html',
+                                      {'error': ERRORTEXT_ALREADY_VOTED},
+                                      RequestContext(request))
+    except Status.DoesNotExist:
+        return render_to_response('vote/error.tpl.html',
+                                  {'error': ERRORTEXT_EMAIL_NOT_REGISTERED},
+                                  RequestContext(request))
+    
+    # Mark the user as having voted
+    status.voted = True
+    status.save()
+
+    # Save the vote objects
+    for voteobject in vote_objects:
+        voteobject.save()
     
     return HttpResponseRedirect('/vote/thanks')
 

@@ -22,7 +22,7 @@ class Team(models.Model):
     #   this informaiton elsewhere.
 
     def __str__(self):
-        return '%i: %s: %s' % (self.pk, self.name, self.project_name)
+        return '%i: Team %s: %s' % (self.pk, self.name, self.project_name)
 
 
 class Status(models.Model):
@@ -32,21 +32,24 @@ class Status(models.Model):
     def __str__(self):
         return '%s: %s' % (self.user.email, self.voted)
 
+    class Meta:
+        verbose_name_plural = 'statuses'
+
 
 class Vote(models.Model):
     user = models.ForeignKey(User)
     poll = models.ForeignKey(Poll)
     
-    place1 = models.ForeignKey(Team, blank=True,
+    place1 = models.ForeignKey(Team, blank=True, null=True,
                                related_name="%(app_label)s_%(class)s_related1")
-    place2 = models.ForeignKey(Team, blank=True,
+    place2 = models.ForeignKey(Team, blank=True, null=True,
                                related_name="%(app_label)s_%(class)s_related2")
-    place3 = models.ForeignKey(Team, blank=True,
+    place3 = models.ForeignKey(Team, blank=True, null=True,
                                related_name="%(app_label)s_%(class)s_related3")
 
     def __str__(self):
-        return '%s: %s: %i, %i, %i' % (self.poll, self.user.email, self.place1,
-                                       self.place2, self.place3)
+        return '%s: %s: %s, %s, %s' % (self.poll, self.user.email,
+                                     self.place1, self.place2, self.place3)
 
     class Meta:
         '''
