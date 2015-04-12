@@ -39,6 +39,7 @@ class Status(models.Model):
 class Vote(models.Model):
     user = models.ForeignKey(User)
     poll = models.ForeignKey(Poll)
+    date = models.DateTimeField(auto_now_add=True)
     
     place1 = models.ForeignKey(Team, blank=True, null=True,
                                related_name="%(app_label)s_%(class)s_related1")
@@ -64,3 +65,4 @@ class Vote(models.Model):
             ("view_totals", "Allowed to calculate the vote totals."),
             ("submit_vote", "Allowed to submit a vote"),
         )
+        ordering = ['date']
