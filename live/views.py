@@ -49,9 +49,6 @@ def fetch(request):
     # loop through events, add them as models in the DB
     for i in range(len(event_names)):
         if event_names[i]:
-            print dates[i], " ", start_times[i], " ", end_times[i], " ", event_names[i]
-            print "Starting at: ", dateutil.parser.parse(dates[i]+ " "+ start_times[i])
-            print "Ending at: ", dateutil.parser.parse(dates[i]+ " "+ end_times[i])
             e = Event(start_date=dateutil.parser.parse(dates[i]+ " "+ start_times[i]),
                       end_date = dateutil.parser.parse(dates[i]+ " "+ end_times[i]),
                       title=event_names[i],
