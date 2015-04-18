@@ -20,7 +20,7 @@ def main_live(request):
     '''
     currdatetime = datetime.datetime.now()
 
-    events = Event.objects.filter(start_date__lt=currdatetime + datetime.timedelta(hours=1)).filter(end_date__gt=currdatetime)
+    events = Event.objects.filter(start_date__lt=currdatetime + datetime.timedelta(hours=1)).filter(end_date__gt=currdatetime).order_by('start_date')
     mealevent = MealEvent.objects.all()[0]
 
     return render_to_response('live/main.html',
