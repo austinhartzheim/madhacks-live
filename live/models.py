@@ -3,13 +3,15 @@ from django.db import models
 
 
 class Event(models.Model):
-    # TODO: decide on how time-zones will be handled and where they will
-    #   be handled.
+
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 
     title = models.CharField(max_length=40)
-    description = models.TextField()
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return '%s' % (self.title)
 
 
 class MealEvent(models.Model):

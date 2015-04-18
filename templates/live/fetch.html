@@ -1,0 +1,18 @@
+{% extends "default.tpl.html" %}
+{% block title %}Live{% endblock %}
+{% block heading %}Live{% endblock %}
+{% block content %}
+
+<p>Welcome to the MadHacks live page!</p>
+
+<!--<section class="note">Please note that you can only vote once. You will not be able to edit your vote after you submit.</section>
+!-->
+
+{% csrf_token %}
+Updated Databse with the latest Spreadsheet data found here: https://docs.google.com/spreadsheets/d/1CoJb3Ondc0OS7dOOp7DQkywdS7W7d96D4QodkwCCghg/edit#gid=0
+
+<br/>
+
+Check the /live page again to see the changes.
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "default.tpl.html" %}
+{% block title %}Vote{% endblock %}
+{% block heading %}Vote{% endblock %}
+{% block content %}
+
+<p>Select the teams that you would like to vote for in each category by entering their team number in each of the boxes.</p>
+
+{% if error %}
+<section class="warning">
+  {{ error }}
+</section>
+{% endif %}
+
+<form method="post" action="/vote/submit">
+{% csrf_token %}
+
+{% if forms %}
+{% for form in forms %}
+<h2>{{ form.title }}</h2>
+<p>{{ form.description }}</p>
+<table class="shorttextinputs">
+{{ form.form.as_table }}
+</table>
+{% endfor %}
+
+{% else %}
+<section class="warning">
+  No polls were set up by the {{ HACKATHON_NAME }} administrators.
+</section>
+{% endif %}
+
+<section class="note">You are only allowed to vote once. You will not be able to change your votes after you submit.</section>
+
+<input type="submit" value="Submit My Votes" />
+
+</form>
+
+{% endblock %}

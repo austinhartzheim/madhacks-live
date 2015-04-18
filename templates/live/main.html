@@ -1,0 +1,50 @@
+{% extends "default.tpl.html" %}
+{% block title %}Live{% endblock %}
+{% block heading %}Live{% endblock %}
+{% block content %}
+
+
+<!--<section class="note">Please note that you can only vote once. You will not be able to edit your vote after you submit.</section>
+!-->
+
+{% if error %}
+<section class="warning">
+  {{ error }}
+</section>
+{% endif %}
+
+{% csrf_token %}
+{% if mealevent.enabled %}
+    <section class="note">
+<h2>{{ mealevent.title }}  - Now Serving: {{ mealevent.now_serving }}</h2>
+<p>Previously served: {{ mealevent.already_served }}</p>
+    </section>
+
+
+
+{% else %}
+<section class="warning">
+  No meals are currently being served.
+</section>
+{% endif %}
+
+
+{% if events %}
+{% for event in events %}
+<h2>{{ event.title }} <br/> </h2>
+    <b>Start Time:</b> {{ event.start_date }}<br/><b>End Time: </b>{{ event.end_date }}
+    {% if event.description %}
+        <p>{{ event.description }}</p>
+    {% endif %}
+<table class="shorttextinputs">
+
+</table>
+{% endfor %}
+
+{% else %}
+<section class="warning">
+  No events happening in the next hour.
+</section>
+{% endif %}
+
+{% endblock %}

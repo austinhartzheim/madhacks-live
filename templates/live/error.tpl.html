@@ -1,0 +1,16 @@
+{% extends "default.tpl.html" %}
+{% block title %}Vote{% endblock %}
+{% block heading %}Thanks for Voting{% endblock %}
+{% block content %}
+
+<section class="warning">
+{% if error %}
+{{ error }}
+{% else %}
+An error was encountered when saving your vote.
+{% endif %}
+</section>
+
+<p>If you believe that this is problematic, please contact someone on our administration team.</p>
+
+{% endblock %}

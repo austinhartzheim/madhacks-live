@@ -21,6 +21,10 @@ from django.conf import settings
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'CREATE YOUR SECRET KEY HERE'
 
+# Google drive info
+DRIVE_LOGIN = ''
+DRIVE_PASS  = ''
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -72,7 +76,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
