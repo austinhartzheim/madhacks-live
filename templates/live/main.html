@@ -3,10 +3,6 @@
 {% block heading %}Schedule{% endblock %}
 {% block content %}
 
-
-<!--<section class="note">Please note that you can only vote once. You will not be able to edit your vote after you submit.</section>
-!-->
-
 {% if error %}
 <section class="warning">
   {{ error }}
@@ -19,12 +15,16 @@
 
 {% csrf_token %}
 {% if mealevent.enabled %}
-    <section class="note">
-<h2>{{ mealevent.title }}  - Now Serving: {{ mealevent.now_serving }}</h2>
-<p>Previously served: {{ mealevent.already_served }}</p>
-    </section>
-
-
+<section class="note">
+  <h2>{{ mealevent.title }}</h2>
+  <p><b>Status:</b> {{ mealevent.status }}</p>
+  {% if mealevent.now_serving %}
+  <p><b>Now serving:</b> {{ mealevent.now_serving }}
+  {% endif %}
+  {% if mealevent.already_served %}
+  <p><b>Previously served: {{ mealevent.already_served }}</p>
+  {% endif %}
+</section>
 
 {% else %}
 <section class="warning">
@@ -40,9 +40,6 @@
     {% if event.description %}
         <p>{{ event.description }}</p>
     {% endif %}
-<table class="shorttextinputs">
-
-</table>
 {% endfor %}
 
 {% else %}

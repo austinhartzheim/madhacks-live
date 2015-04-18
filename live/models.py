@@ -32,6 +32,6 @@ class MealEvent(models.Model):
     pin = models.BooleanField(default=True)
 
     # Groups
-    now_serving = models.CharField(max_length=200)
-    already_served = models.CharField(max_length=200)
-    not_served = models.CharField(max_length=200)
+    now_serving = models.CharField(max_length=200, blank=True)
+    already_served = models.CharField(max_length=200, blank=True)
+    not_served = models.CharField(max_length=200, blank=True)
